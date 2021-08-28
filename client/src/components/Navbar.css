@@ -6,9 +6,6 @@
     padding: 0;
 }
 
-body {
-    background: linear-gradient(to right, rgb(210, 180, 140), rgb(218, 186, 147));
-}
 
 .navbar-container {
     background-color: #24252A;
