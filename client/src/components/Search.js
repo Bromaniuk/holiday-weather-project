@@ -12,17 +12,13 @@ const filterOptions = createFilterOptions({
 
 function Search() {
     const history = useHistory();
-
-    const handleClick = (city, country) => {
-        history.push('/search/' + city + '/' + country)
-    }
     
     return (
         <Autocomplete
             id="combo-box"
             options={cityList}
             getOptionLabel={(option) => option.label}
-            getOptionSelected={(option, value) => { if(value.id === option.id) { handleClick(option.city, option.country) }} }
+            getOptionSelected={(option, value) => { if(option.id === value.id) { history.push(`/weather/?country=${option.country}&city=${option.city}`) }} }
             style={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Choose your destination" variant="outlined" />}
             filterOptions={filterOptions}
