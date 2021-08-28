@@ -1,11 +1,10 @@
 import React from 'react';
 import '../../App.css';
-import Search from '../Search';
 
 function Home() {
     return (
         <div className='home-wrapper'>
-            <Search />
+            <span>Home Page</span>
         </div>
     )
 };
