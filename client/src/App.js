@@ -14,7 +14,7 @@ function App() {
       <Search />
       <Switch>
         <Route path='/' exact component={Home} />
-        <Route path='/weather' component={Weather} />
+        <Route path='/weather/:country/:city' component={Weather} />
       </Switch>
     </Router>
     </>
