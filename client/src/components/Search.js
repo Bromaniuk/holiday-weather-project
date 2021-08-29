@@ -18,9 +18,9 @@ function Search() {
             id="combo-box"
             options={cityList}
             getOptionLabel={(option) => option.label}
-            getOptionSelected={(option, value) => { if(option.id === value.id) { history.push(`/weather/?country=${option.country}&city=${option.city}`) }} }
+            getOptionSelected={(option, value) => { if(option.id === value.id) { history.push(`/weather/${option.country}/${option.city}`) }} }
             style={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Choose your destination" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Choose your city" variant="outlined" />}
             filterOptions={filterOptions}
         />
     )
