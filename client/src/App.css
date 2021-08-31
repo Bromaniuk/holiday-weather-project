@@ -1,11 +1,109 @@
-table {
-    width: 50%;
+@import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
+
+
+#root {
+    /* background: rgba(142, 169, 241, 0.75); */
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-th, td {
-    padding: 5px;
+
+.content-wrapper {
+    margin: 3%;
+    width: 80%;
+    height: 75%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 7px;
+}
+
+.header {
+    font-family: 'Style Script', cursive;
+    font-size: 2.75rem;
     text-align: center;
+    padding: 1%;
+}
+
+.header-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    padding: 1%;
+}
+
+.home-wrapper {
+    margin: 2%;
+    display: flex;
+    justify-content: space-around;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.popular-destinations-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.popular-destinations-wrapper > ul{
+    list-style: none;
+}
+
+.home-headers {
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+.popular-destination-items {
+    margin-top: 3%;
+    text-align: center;
+    border: 1px solid rgba(112, 111, 111, 0.616);
+    background-color: rgba(238, 238, 245, 0.9);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
+    border-radius: 7px;
+    color: rgba(98, 86, 207, 0.925);
+    font-size: 1.25rem;
+}
+.popular-destination-anchor {
+    text-decoration: none;
+}
+
+.weather-wrapper {
+    background-color: #ffffff;
+    margin: 2%;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.location-header{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.month-avg-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+.month-avg-table {
+    width: 25%;
+    margin-left: 10%;
+
+}
+
+.month-avg-graph {
+    padding-top: 2%;
+    width: 50%;
+    margin-right: 5%;
+
+}
+
+tbody, thead {
+    text-align: center
 }
