@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import WeatherDataService from '../../services/WeatherDataService';
+import Switch from '@material-ui/core/Switch';
 import '../../App.css';
-
+import MonthlyAveragesTable from '../MonthlyAveragesTable';
+import MonthlyAveragesGraph from '../MonthlyAveragesGraph';
 
 
 const Weather = props => {
@@ -10,35 +12,74 @@ const Weather = props => {
     const [monthlyAverages, setMonthlyAverages] = useState([]);
     const [monthlyAveragesCelsius, setMonthlyAveragesCelsius] = useState([]);
     const [monthlyAveragesFahrenheit, setMonthlyAveragesFahrenheit] = useState([]);
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const [monthlyAveragesGraphData, setMonthlyAveragesGraphData] = useState([]);
+    const [dailyAveragesGraphData, setDailyAveragesGraphData] = useState([]);
+    const [selectMonthIndex, setSelectMonthIndex] = useState(0);
 
+    // True is Celsius ; False is Fahrenheit
+    const [toggleTemp, setToggleTemp] = useState(true);
+
+    // True is Monthly ; False is Daily
+    const [toggleMonthlyOrDaily, setToggleMonthlyOrDaily] = useState(true);
+
+
+    // const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    const toggleTemperature = () => {
+        setToggleTemp(!toggleTemp);
+    };
+
+    const toggleMonthlyOrDailyData = (data, index) => {
+        setToggleMonthlyOrDaily(!toggleMonthlyOrDaily);
+        setSelectMonthIndex(index);
+    };
 
     useEffect(() => {
+        // Get city and country from URL route props
         setCity(props.match.params.city);
         setCountry(props.match.params.country);
         WeatherDataService.getCityData(props.match.params.country, props.match.params.city)
             .then(response => {
-                setMonthlyAverages(response.data);
+                setMonthlyAverages(response.data.monthlyAverages);
+                setMonthlyAveragesGraphData(response.data.monthlyAveragesGraphData);
+                setDailyAveragesGraphData(response.data.dailyAveragesGraphData);
             })
-        setMonthlyAveragesCelsius(monthlyAverages.map(month => (month - 273.15).toFixed(2)))
-        setMonthlyAveragesFahrenheit(monthlyAverages.map(month => (((month - 273.15) * (9/5) + 32).toFixed(2))))    
-    }, [props.match.params.city, props.match.params.country, monthlyAverages])
 
+    }, [props.match.params.city, props.match.params.country])
+
+    useEffect(() => {
+        setMonthlyAveragesCelsius(monthlyAverages.map(month => +((month - 273.15).toFixed(2))))
+        setMonthlyAveragesFahrenheit(monthlyAverages.map(month => +((((month - 273.15) * (9 / 5) + 32).toFixed(2)))))
+    }, [monthlyAverages])
 
     return (
         <div className='weather-wrapper'>
-            <span>Weather Page</span>
-            <h2>Monthly Averages: {city}, {country}</h2>
-            <table>
-                {monthlyAveragesCelsius.map((month, index) => {
-                    return (
-                        <tr>
-                            <th>{months[index]}</th>
-                            <td key={index}>{month}°</td>
-                        </tr>
-                    )
-                }, [props.match.params.city, props.match.params.country])}
-            </table>
+            <h4 className='location-header'>{city}, {country}</h4>
+            <span>F</span>
+            <Switch
+                checked={toggleTemp}
+                onChange={toggleTemperature}
+            />
+            <span>C</span>
+            <div className='month-avg-wrapper'>
+                <MonthlyAveragesTable
+                    toggleTemp={toggleTemp}
+                    monthlyAveragesCelsius={monthlyAveragesCelsius}
+                    monthlyAveragesFahrenheit={monthlyAveragesFahrenheit}
+                />
+                {toggleMonthlyOrDaily
+                    ? <MonthlyAveragesGraph
+                        toggleTemp={toggleTemp}
+                        data={monthlyAveragesGraphData}
+                        clickFunction={toggleMonthlyOrDailyData}/>
+                    : <MonthlyAveragesGraph
+                        toggleTemp={toggleTemp}
+                        data={dailyAveragesGraphData[selectMonthIndex]}
+                        clickFunction={toggleMonthlyOrDailyData} />
+
+                }
+
+            </div>
         </div>
     )
 };
