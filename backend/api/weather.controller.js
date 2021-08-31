@@ -5,14 +5,16 @@ export default class WeatherController {
         const country = req.query.country;
         const city = req.query.city;
 
-        const { monthlyAverages } = await WeatherDAO.getWeather({
+        const { monthlyAverages, monthlyAveragesGraphData, dailyAveragesGraphData } = await WeatherDAO.getWeather({
             country,
             city
         })
 
         let response = {
-            monthlyAverages: monthlyAverages
+            monthlyAverages: monthlyAverages,
+            monthlyAveragesGraphData: monthlyAveragesGraphData,
+            dailyAveragesGraphData: dailyAveragesGraphData
         }
-        res.json(monthlyAverages);
+        res.json(response);
     }
 }
