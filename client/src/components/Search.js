@@ -6,8 +6,8 @@ import cityList from '../city-list';
 
 
 const filterOptions = createFilterOptions({
-    matchFrom: 'start',
-    limit: 50,
+    matchFrom: 'any',
+    limit: 10,
   });
 
 function Search() {
@@ -20,7 +20,7 @@ function Search() {
             getOptionLabel={(option) => option.label}
             getOptionSelected={(option, value) => { if(option.id === value.id) { history.push(`/weather/${option.country}/${option.city}`) }} }
             style={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Choose your city" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Enter your city" variant="outlined" />}
             filterOptions={filterOptions}
         />
     )
