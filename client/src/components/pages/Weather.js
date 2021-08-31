@@ -3,7 +3,7 @@ import WeatherDataService from '../../services/WeatherDataService';
 import Switch from '@material-ui/core/Switch';
 import '../../App.css';
 import MonthlyAveragesTable from '../MonthlyAveragesTable';
-import MonthlyAveragesGraph from '../MonthlyAveragesGraph';
+import TemperatureAveragesGraph from '../TemperatureAveragesGraph';
 
 
 const Weather = props => {
@@ -68,11 +68,11 @@ const Weather = props => {
                     monthlyAveragesFahrenheit={monthlyAveragesFahrenheit}
                 />
                 {toggleMonthlyOrDaily
-                    ? <MonthlyAveragesGraph
+                    ? <TemperatureAveragesGraph
                         toggleTemp={toggleTemp}
                         data={monthlyAveragesGraphData}
                         clickFunction={toggleMonthlyOrDailyData}/>
-                    : <MonthlyAveragesGraph
+                    : <TemperatureAveragesGraph
                         toggleTemp={toggleTemp}
                         data={dailyAveragesGraphData[selectMonthIndex]}
                         clickFunction={toggleMonthlyOrDailyData} />
