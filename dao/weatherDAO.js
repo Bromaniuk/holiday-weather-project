@@ -65,26 +65,26 @@ export default class WeatherDAO {
 
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
             for (let month = 1; month < 13; month++) {
-                celsiusMonthlyAveragesMedianTableData.push(+((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15).toFixed(2)))
-                celsiusMonthlyAveragesMinTableData.push(+((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15).toFixed(2)))
-                celsiusMonthlyAveragesMaxTableData.push(+((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15).toFixed(2)))
+                celsiusMonthlyAveragesMedianTableData.push(Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15)))
+                celsiusMonthlyAveragesMinTableData.push(Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15)))
+                celsiusMonthlyAveragesMaxTableData.push(Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15)))
 
-                fahrenheitMonthlyAveragesMedianTableData.push(+(((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15) * (9 / 5) + 32).toFixed(2)))
-                fahrenheitMonthlyAveragesMinTableData.push(+(((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15) * (9 / 5) + 32).toFixed(2)))
-                fahrenheitMonthlyAveragesMaxTableData.push(+(((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15) * (9 / 5) + 32).toFixed(2)))
+                fahrenheitMonthlyAveragesMedianTableData.push(Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15) * (9 / 5) + 32)))
+                fahrenheitMonthlyAveragesMinTableData.push(Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15) * (9 / 5) + 32)))
+                fahrenheitMonthlyAveragesMaxTableData.push(Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15) * (9 / 5) + 32)))
 
 
                 celsiusMonthlyAveragesGraphData.push({
                     "name": months[month - 1],
-                    "median": +((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15).toFixed(2)),
-                    "low": +((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15).toFixed(2)),
-                    "high": +((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15).toFixed(2))
+                    "median": Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15)),
+                    "low": Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15)),
+                    "high": Math.round((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15))
                 })
                 fahrenheitMonthlyAveragesGraphData.push({
                     "name": months[month - 1],
-                    "median": +(((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15) * (9 / 5) + 32).toFixed(2)),
-                    "low": +(((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15) * (9 / 5) + 32).toFixed(2)),
-                    "high": +(((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15) * (9 / 5) + 32).toFixed(2))
+                    "median": Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_median"] - 273.15) * (9 / 5) + 32)),
+                    "low": Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_min"] - 273.15) * (9 / 5) + 32)),
+                    "high": Math.round(((await displayCursor["temp"]["month"][`${month}`]["month_average_max"] - 273.15) * (9 / 5) + 32))
                 })
 
                 let celsiusCurrentMonthDailyAveragesGraphData = []
@@ -106,16 +106,16 @@ export default class WeatherDAO {
 
                     celsiusCurrentMonthDailyAveragesGraphData.push({
                         "name": currentDay,
-                        "median": +((await displayCursor["temp"]["month"][`${month}`][`${day}`]["median"] - 273.15).toFixed(2)),
-                        "low": +((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_min"] - 273.15).toFixed(2)),
-                        "high": +((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_max"] - 273.15).toFixed(2))
+                        "median": Math.round((await displayCursor["temp"]["month"][`${month}`][`${day}`]["median"] - 273.15)),
+                        "low": Math.round((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_min"] - 273.15)),
+                        "high": Math.round((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_max"] - 273.15))
                     })
 
                     fahrenheitCurrentMonthDailyAveragesGraphData.push({
                         "name": currentDay,
-                        "median": +(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["median"] - 273.15) * (9 / 5) + 32).toFixed(2)),
-                        "low": +(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_min"] - 273.15) * (9 / 5) + 32).toFixed(2)),
-                        "high": +(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_max"] - 273.15) * (9 / 5) + 32).toFixed(2))
+                        "median": Math.round(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["median"] - 273.15) * (9 / 5) + 32)),
+                        "low": Math.round(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_min"] - 273.15) * (9 / 5) + 32)),
+                        "high": Math.round(((await displayCursor["temp"]["month"][`${month}`][`${day}`]["average_max"] - 273.15) * (9 / 5) + 32))
                     })
 
                 }
