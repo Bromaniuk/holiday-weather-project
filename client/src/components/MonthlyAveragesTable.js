@@ -2,64 +2,40 @@ import React from 'react';
 import Table from 'react-bootstrap/Table'
 
 
-function MonthlyAveragesTable({ toggleTemp, monthlyAveragesCelsius, monthlyAveragesFahrenheit }) {
+function MonthlyAveragesTable({ toggleTemp, clickFunction,
+    monthlyMedianAveragesCelsius, monthlyMinAveragesCelsius, monthlyMaxAveragesCelsius, 
+    monthlyMedianAveragesFahrenheit, monthlyMinAveragesFahrenheit, monthlyMaxAveragesFahrenheit }) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
     return (
         <div className='month-avg-table'>
-            {/* This is the same table but horizontal, leaving just in case
-            <Table bordered striped hover size='sm'>
-                <thead>
-                    <tr>
-                        <th>Temp</th>
-                        {months.map(month => {
-                            return (
-                                <th>{month.substring(0, 3)}</th>
-                            )
-                        })}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>C°</td>
-                        {monthlyAveragesCelsius.map(month => {
-                            return (
-                                <td>
-                                    {month}°
-                                </td>
-                            )
-                        }, [city, country])}
-                    </tr>
-                    <tr>
-                        <td>F°</td>
-                        {monthlyAveragesFahrenheit.map(month => {
-                            return (
-                                <td>
-                                    {month}°
-                                </td>
-                            )
-                        }, [city, country])}
-                    </tr>
-                </tbody>
-            </Table> */}
+            <h6><strong>Monthly Averages</strong></h6>
             <Table bordered striped hover size='sm'>
                 <thead>
                     <tr>
                         <th>Month</th>
-                        {toggleTemp
-                            ? <th>Celsius</th>
-                            : <th>Fahrenheit</th>}
+                        <th>Average</th>
+                        <th>Low</th>
+                        <th>High</th>
                     </tr>
                 </thead>
                 <tbody>
                     {months.map((month, index) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => clickFunction(index)}>
                                 <th>{month.substring(0, 3)}</th>
                                 {toggleTemp
-                                    ? <td>{monthlyAveragesCelsius[index]}°</td>
-                                    : <td>{monthlyAveragesFahrenheit[index]}°</td>
+                                    ? <td>{monthlyMedianAveragesCelsius[index]}°</td>
+                                    : <td>{monthlyMedianAveragesFahrenheit[index]}°</td>
+                                }
+                                {toggleTemp
+                                    ? <td>{monthlyMinAveragesCelsius[index]}°</td>
+                                    : <td>{monthlyMinAveragesFahrenheit[index]}°</td>
+                                }
+                                {toggleTemp
+                                    ? <td>{monthlyMaxAveragesCelsius[index]}°</td>
+                                    : <td>{monthlyMaxAveragesFahrenheit[index]}°</td>
                                 }
                             </tr>
                         )
