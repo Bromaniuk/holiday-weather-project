@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import WeatherDAO from './dao/weatherDAO.js';
 import path from 'path';
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 import cors from 'cors';
 import weather from "./api/weather.route.js";
 
@@ -27,7 +28,9 @@ MongoClient.connect(
   process.env.WEATHER_DB_URI,
   {
     maxPoolSize: 50,
-    wtimeoutMS: 2500
+    wtimeoutMS: 2500,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   }
 )
   .catch(err => {
