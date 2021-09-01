@@ -1,11 +1,23 @@
-import app from './server.js';
 import mongodb from "mongodb";
 import dotenv from 'dotenv';
 import express from 'express';
 import WeatherDAO from './dao/weatherDAO.js';
 import path from 'path';
+import cors from 'cors';
+import weather from "./api/weather.route.js";
 
 dotenv.config();
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+
+app.use('/api/v1/weather', weather);
+
+
+app.use('*', (req, res ) => res.status(404).json({ error: "not found" }));
 
 const MongoClient = mongodb.MongoClient;
 
@@ -24,10 +36,10 @@ MongoClient.connect(
   })
   .then(async client => {
     if (process.env.NODE_ENV === 'production') {
-      app.use(express.static('client/build'))
+      app.use(express.static(path.join(__dirname, 'build')))
 
-      app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+      app.get('/*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
       })
     }
     await WeatherDAO.injectDB(client);
