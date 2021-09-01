@@ -1,6 +1,7 @@
 import app from './server.js';
 import mongodb from "mongodb";
 import dotenv from 'dotenv';
+import express from 'express';
 import WeatherDAO from './dao/weatherDAO.js';
 import path from 'path';
 
