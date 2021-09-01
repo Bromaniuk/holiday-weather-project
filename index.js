@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/v1/weather', weather);
 
 
-app.use('*', (req, res ) => res.status(404).json({ error: "not found" }));
+app.use('*', (req, res) => res.status(404).json({ error: "not found" }));
 
 const MongoClient = mongodb.MongoClient;
 
@@ -35,13 +35,13 @@ MongoClient.connect(
     process.exit(1);
   })
   .then(async client => {
-    if (process.env.NODE_ENV === 'production') {
-      app.use(express.static(path.join(__dirname, 'build')))
 
-      app.get('/*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
-      })
-    }
+    app.use(express.static(path.join(__dirname, 'build')))
+
+    app.get('/*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    })
+
     await WeatherDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
