@@ -15,7 +15,7 @@ function MonthlyAveragesTable({ toggleTemp, clickFunction,
                 <thead>
                     <tr>
                         <th>Month</th>
-                        <th>Average</th>
+                        <th>Median</th>
                         <th>Low</th>
                         <th>High</th>
                     </tr>
