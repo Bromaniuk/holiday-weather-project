@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import WeatherDataService from '../../services/WeatherDataService';
 import Switch from '@material-ui/core/Switch';
 import '../../App.css';
+import './Weather.css'
 import MonthlyAveragesTable from '../MonthlyAveragesTable';
 import TemperatureAveragesGraph from '../TemperatureAveragesGraph';
 
@@ -9,11 +11,8 @@ import TemperatureAveragesGraph from '../TemperatureAveragesGraph';
 const Weather = props => {
     const [country, setCountry] = useState("");
     const [city, setCity] = useState("");
-    const [monthlyAverages, setMonthlyAverages] = useState([]);
-    const [monthlyAveragesCelsius, setMonthlyAveragesCelsius] = useState([]);
-    const [monthlyAveragesFahrenheit, setMonthlyAveragesFahrenheit] = useState([]);
-    const [monthlyAveragesGraphData, setMonthlyAveragesGraphData] = useState([]);
-    const [dailyAveragesGraphData, setDailyAveragesGraphData] = useState([]);
+
+    // Used in onClick function for table rows, sets month index for daily graph data 
     const [selectMonthIndex, setSelectMonthIndex] = useState(0);
 
     // True is Celsius ; False is Fahrenheit
@@ -22,14 +21,28 @@ const Weather = props => {
     // True is Monthly ; False is Daily
     const [toggleMonthlyOrDaily, setToggleMonthlyOrDaily] = useState(true);
 
+    const [celsiusMonthlyAveragesMedianTableData, setCelsiusMonthlyAveragesMedianTableData] = useState([]);
+    const [celsiusMonthlyAveragesMinTableData, setCelsiusMonthlyAveragesMinTableData] = useState([]);
+    const [celsiusMonthlyAveragesMaxTableData, setCelsiusMonthlyAveragesMaxTableData] = useState([]);
 
-    // const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const [fahrenheitMonthlyAveragesMedianTableData, setFahrenheitMonthlyAveragesMedianTableData] = useState([]);
+    const [fahrenheitMonthlyAveragesMinTableData, setFahrenheitMonthlyAveragesMinTableData] = useState([]);
+    const [fahrenheitMonthlyAveragesMaxTableData, setFahrenheitMonthlyAveragesMaxTableData] = useState([]);
+
+    const [celsiusMonthlyAveragesGraphData, setCelsiusMonthlyAveragesGraphData] = useState([]);
+    const [fahrenheitMonthlyAveragesGraphData, setFahrenheitMonthlyAveragesGraphData] = useState([]);
+
+    const [celsiusDailyAveragesGraphData, setCelsiusDailyAveragesGraphData] = useState([]);
+    const [fahrenheitDailyAveragesGraphData, setFahrenheitDailyAveragesGraphData] = useState([]);
+
+
+
 
     const toggleTemperature = () => {
         setToggleTemp(!toggleTemp);
     };
 
-    const toggleMonthlyOrDailyData = (data, index) => {
+    const toggleMonthlyOrDailyData = (index) => {
         setToggleMonthlyOrDaily(!toggleMonthlyOrDaily);
         setSelectMonthIndex(index);
     };
@@ -40,46 +53,63 @@ const Weather = props => {
         setCountry(props.match.params.country);
         WeatherDataService.getCityData(props.match.params.country, props.match.params.city)
             .then(response => {
-                setMonthlyAverages(response.data.monthlyAverages);
-                setMonthlyAveragesGraphData(response.data.monthlyAveragesGraphData);
-                setDailyAveragesGraphData(response.data.dailyAveragesGraphData);
+                setCelsiusMonthlyAveragesMedianTableData(response.data.celsiusMonthlyAveragesMedianTableData);
+                setCelsiusMonthlyAveragesMinTableData(response.data.celsiusMonthlyAveragesMinTableData);
+                setCelsiusMonthlyAveragesMaxTableData(response.data.celsiusMonthlyAveragesMaxTableData);
+
+                setFahrenheitMonthlyAveragesMedianTableData(response.data.fahrenheitMonthlyAveragesMedianTableData);
+                setFahrenheitMonthlyAveragesMinTableData(response.data.fahrenheitMonthlyAveragesMinTableData);
+                setFahrenheitMonthlyAveragesMaxTableData(response.data.fahrenheitMonthlyAveragesMaxTableData);
+
+                setCelsiusMonthlyAveragesGraphData(response.data.celsiusMonthlyAveragesGraphData);
+                setFahrenheitMonthlyAveragesGraphData(response.data.fahrenheitMonthlyAveragesGraphData);
+
+                setCelsiusDailyAveragesGraphData(response.data.celsiusDailyAveragesGraphData);
+                setFahrenheitDailyAveragesGraphData(response.data.fahrenheitDailyAveragesGraphData);
             })
-
     }, [props.match.params.city, props.match.params.country])
-
-    useEffect(() => {
-        setMonthlyAveragesCelsius(monthlyAverages.map(month => +((month - 273.15).toFixed(2))))
-        setMonthlyAveragesFahrenheit(monthlyAverages.map(month => +((((month - 273.15) * (9 / 5) + 32).toFixed(2)))))
-    }, [monthlyAverages])
 
     return (
         <div className='weather-wrapper'>
-            <h4 className='location-header'>{city}, {country}</h4>
-            <span>F</span>
-            <Switch
-                checked={toggleTemp}
-                onChange={toggleTemperature}
-            />
-            <span>C</span>
+            <h3 className='location-header'>{city}, {country}</h3>
             <div className='month-avg-wrapper'>
-                <MonthlyAveragesTable
-                    toggleTemp={toggleTemp}
-                    monthlyAveragesCelsius={monthlyAveragesCelsius}
-                    monthlyAveragesFahrenheit={monthlyAveragesFahrenheit}
-                />
+                <div className='table-section'>
+                    <div>
+                        <span>°F</span>
+                        <Switch
+                            checked={toggleTemp}
+                            onChange={toggleTemperature}
+                        />
+                        <span>°C</span>
+                    </div>
+                    <MonthlyAveragesTable
+                        toggleTemp={toggleTemp}
+                        clickFunction={toggleMonthlyOrDailyData}
+                        monthlyMedianAveragesCelsius={celsiusMonthlyAveragesMedianTableData}
+                        monthlyMinAveragesCelsius={celsiusMonthlyAveragesMinTableData}
+                        monthlyMaxAveragesCelsius={celsiusMonthlyAveragesMaxTableData}
+
+                        monthlyMedianAveragesFahrenheit={fahrenheitMonthlyAveragesMedianTableData}
+                        monthlyMinAveragesFahrenheit={fahrenheitMonthlyAveragesMinTableData}
+                        monthlyMaxAveragesFahrenheit={fahrenheitMonthlyAveragesMaxTableData}
+
+                    />
+                </div>
+
                 {toggleMonthlyOrDaily
                     ? <TemperatureAveragesGraph
                         toggleTemp={toggleTemp}
-                        data={monthlyAveragesGraphData}
-                        clickFunction={toggleMonthlyOrDailyData}/>
+                        celsiusData={celsiusMonthlyAveragesGraphData}
+                        fahrenheitData={fahrenheitMonthlyAveragesGraphData}
+                    />
                     : <TemperatureAveragesGraph
                         toggleTemp={toggleTemp}
-                        data={dailyAveragesGraphData[selectMonthIndex]}
-                        clickFunction={toggleMonthlyOrDailyData} />
-
+                        celsiusData={celsiusDailyAveragesGraphData[selectMonthIndex]}
+                        fahrenheitData={fahrenheitDailyAveragesGraphData[selectMonthIndex]}
+                    />
                 }
-
             </div>
+            <p>Source: <Link to={{ pathname: "https://openweathermap.org/api/statistics-api" }} target="_blank" >OpenWeatherMap - Statistical Weather Data API</Link></p>
         </div>
     )
 };
