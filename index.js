@@ -23,7 +23,6 @@ app.use('*', (req, res) => res.status(404).json({ error: "not found" }));
 const MongoClient = mongodb.MongoClient;
 
 const port = process.env.PORT || 8000;
-console.log(process.env.WEATHER_DB_URI)
 MongoClient.connect(
   process.env.WEATHER_DB_URI,
   {
