@@ -13,7 +13,10 @@ function App() {
     <>
       <Router>
         <div className='content-wrapper'>
-          <div className='header'><Link to='/' className='header-link'>Holiday Weather</Link></div>
+          <div className='header'>
+            <Link to='/' className='header-link'>Holiday Climate</Link>
+            <div className='paperairplane'></div>
+          </div>
           <div className='search-wrapper'>
             <Search />
           </div>
