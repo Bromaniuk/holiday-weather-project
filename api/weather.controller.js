@@ -5,15 +5,27 @@ export default class WeatherController {
         const country = req.query.country;
         const city = req.query.city;
 
-        const { monthlyAverages, monthlyAveragesGraphData, dailyAveragesGraphData } = await WeatherDAO.getWeather({
+        const { celsiusMonthlyAveragesMedianTableData, celsiusMonthlyAveragesMinTableData, celsiusMonthlyAveragesMaxTableData, 
+            fahrenheitMonthlyAveragesMedianTableData, fahrenheitMonthlyAveragesMinTableData, fahrenheitMonthlyAveragesMaxTableData, 
+            celsiusMonthlyAveragesGraphData, fahrenheitMonthlyAveragesGraphData,
+            celsiusDailyAveragesGraphData, fahrenheitDailyAveragesGraphData } = await WeatherDAO.getWeather({
             country,
             city
         })
-
         let response = {
-            monthlyAverages: monthlyAverages,
-            monthlyAveragesGraphData: monthlyAveragesGraphData,
-            dailyAveragesGraphData: dailyAveragesGraphData
+            celsiusMonthlyAveragesMedianTableData: celsiusMonthlyAveragesMedianTableData,
+            celsiusMonthlyAveragesMinTableData: celsiusMonthlyAveragesMinTableData,
+            celsiusMonthlyAveragesMaxTableData: celsiusMonthlyAveragesMaxTableData, 
+
+            fahrenheitMonthlyAveragesMedianTableData: fahrenheitMonthlyAveragesMedianTableData,
+            fahrenheitMonthlyAveragesMinTableData: fahrenheitMonthlyAveragesMinTableData,
+            fahrenheitMonthlyAveragesMaxTableData: fahrenheitMonthlyAveragesMaxTableData, 
+
+            celsiusMonthlyAveragesGraphData: celsiusMonthlyAveragesGraphData,
+            fahrenheitMonthlyAveragesGraphData: fahrenheitMonthlyAveragesGraphData,
+
+            celsiusDailyAveragesGraphData: celsiusDailyAveragesGraphData,
+            fahrenheitDailyAveragesGraphData: fahrenheitDailyAveragesGraphData
         }
         res.json(response);
     }
