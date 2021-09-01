@@ -10,7 +10,7 @@ function MonthlyAveragesGraph({ toggleTemp, data, clickFunction }) {
                 <BarChart data={data}>
                     <CartesianGrid strokeDasharray="4" />
                     <XAxis dataKey="name" />
-                    <YAxis type="number" domain={['dataMin - 2', 'auto']}/>
+                    <YAxis type="number" domain={['dataMin', 'auto']}/>
                     <Tooltip />
                     <Legend />
                     {toggleTemp
