@@ -22,11 +22,11 @@ MongoClient.connect(
     process.exit(1);
   })
   .then(async client => {
-      app.use(express.static(path.join(__dirname, 'build')))
-      app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'))
-      })
-    
+    app.use(express.static(path.join(__dirname, 'build')))
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'))
+    })
+
     await WeatherDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
