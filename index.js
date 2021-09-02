@@ -1,27 +1,20 @@
+import app from './server.js';
 import mongodb from "mongodb";
 import dotenv from 'dotenv';
 import express from 'express';
 import WeatherDAO from './dao/weatherDAO.js';
 import path from 'path';
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-import cors from 'cors';
-import weather from "./api/weather.route.js";
+
 
 dotenv.config();
-
-
-console.log(path.join(__dirname, 'build', 'index.html'))
-
-
 const MongoClient = mongodb.MongoClient;
-
+const port = 5000 || 8000;
 MongoClient.connect(
   'mongodb+srv://admin:7RYZIGcAEgJvnClB@cluster0.3uxtl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   {
     maxPoolSize: 50,
-    wtimeoutMS: 2500,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    wtimeoutMS: 2500
   }
 )
   .catch(err => {
@@ -29,23 +22,12 @@ MongoClient.connect(
     process.exit(1);
   })
   .then(async client => {
-    const app = express();
-
-    app.use(cors());
-    app.use(express.json());
-
-
-    app.use('/api/v1/weather', weather);
-
-
-    app.use('*', (req, res) => res.status(404).json({ error: "not found" }));
-
-    const port = process.env.PORT || 8000;
-    app.use(express.static(path.join(__dirname, 'build')))
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'))
-    })
-
+    if (process.env.NODE_ENV === 'production') {
+      app.use(express.static(path.join(__dirname, 'build')))
+      app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+      })
+    }
     await WeatherDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
