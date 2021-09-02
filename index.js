@@ -6,7 +6,10 @@ import WeatherDAO from './dao/weatherDAO.js';
 import path from 'path';
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-
+app.use(express.static(path.join(__dirname, 'build')))
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
 const port = process.env.PORT || 8000;
@@ -22,11 +25,6 @@ MongoClient.connect(
     process.exit(1);
   })
   .then(async client => {
-    app.use(express.static(path.join(__dirname, 'build')))
-    app.get('/*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'))
-    })
-
     await WeatherDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
