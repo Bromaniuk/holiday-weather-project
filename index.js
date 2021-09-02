@@ -15,7 +15,7 @@ dotenv.config();
 const MongoClient = mongodb.MongoClient;
 
 MongoClient.connect(
-  process.env.WEATHER_DB_URI,
+  'mongodb+srv://admin:7RYZIGcAEgJvnClB@cluster0.3uxtl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   {
     maxPoolSize: 50,
     wtimeoutMS: 2500,
