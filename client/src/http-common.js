@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: "http://localhost:5000/api/v1/weather",
+    baseURL: "https://warm-ravine-98532.herokuapp.com/api/v1/weather",
     headers: {
         "Content-type": "application/json"
     }
