@@ -10,6 +10,7 @@ import weather from "./api/weather.route.js";
 dotenv.config();
 
 
+console.log(path.join(__dirname, 'build', 'index.html'))
 
 
 const MongoClient = mongodb.MongoClient;
@@ -41,9 +42,8 @@ MongoClient.connect(
 
     const port = process.env.PORT || 8000;
     app.use(express.static(path.join(__dirname, 'build')))
-
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+      res.sendFile(path.join(__dirname, 'build', 'index.html'))
     })
 
     await WeatherDAO.injectDB(client);
