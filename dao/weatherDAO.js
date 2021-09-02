@@ -6,7 +6,7 @@ export default class WeatherDAO {
             return
         }
         try {
-            weather = await conn.db(process.env.WEATHER_NS)
+            weather = await conn.db('myFirstDatabase')
         } catch (e) {
             console.error(
                 `Unable to establish a connection in weatherDAO: ${e}`,

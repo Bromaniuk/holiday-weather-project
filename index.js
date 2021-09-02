@@ -9,7 +9,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
-const port = process.env.PORT || 8000;
+const port = 5000 || 8000;
 MongoClient.connect(
   'mongodb+srv://admin:7RYZIGcAEgJvnClB@cluster0.3uxtl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   {
