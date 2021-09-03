@@ -3,7 +3,7 @@
 
 #root {
     /* background: rgba(142, 169, 241, 0.75); */
-    background-image: url('background.jpg');
+    background-image: url('beach.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
