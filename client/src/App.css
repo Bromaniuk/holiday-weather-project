@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&display=swap');
-
+@media screen and (min-width: 993px) {
+    
 #root {
     /* background: rgba(142, 169, 241, 0.75); */
     background-image: url('beach.jpg');
@@ -55,3 +56,63 @@
 .search-wrapper > div {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
 }
+}
+
+@media screen and (max-width: 992px) {
+
+    #root {
+        background-image: url('beach.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .content-wrapper {
+        margin: 2%;
+        width: 90%;
+        height: 90%;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 7px;
+    }
+    
+    .header {
+        font-family: 'Style Script', cursive;
+        font-size: 2.5rem;
+        text-align: center;
+        /* padding: 1%; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10%;
+    }
+    
+    .paperairplane {
+        width: 11vw;
+        height: 11vh;
+        background-image: url('paperairplane.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    
+    .header-link {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.9);
+    }
+    
+    .search-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 1%;
+        padding: 1%;
+    }
+    
+    .search-wrapper > div {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
+    }
+}
+
+

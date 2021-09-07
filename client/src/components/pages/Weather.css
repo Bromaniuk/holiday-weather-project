@@ -1,37 +1,92 @@
-.weather-wrapper {
-    background-color: #ffffff;
-    margin: 2%;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
+@media screen and (min-width: 993px) {
+
+    .weather-wrapper {
+        background-color: #ffffff;
+        margin: 2%;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .location-header{
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .month-avg-wrapper{
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .table-section {
+        margin-left: 6%;
+        width: 25%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .month-avg-graph {
+        padding-top: 5%;
+        width: 40%;
+        margin-right: 5%;
+    }
+    
+    tbody, thead {
+        text-align: center
+    }
+    
+    tr {
+        cursor: pointer;
+    }    
 }
 
-.location-header{
-    font-family: 'Montserrat', sans-serif;
+@media screen and (max-width: 992px) {
+
+    .weather-wrapper {
+        background-color: #ffffff;
+        margin: 2%;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .location-header{
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .month-avg-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .table-section {
+        margin-left: 6%;
+        margin-right: 6%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .month-avg-graph {
+        /* padding-top: 5%; */
+        margin-right: 6%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    tbody, thead {
+        text-align: center
+    }
+    
+    tr {
+        cursor: pointer;
+    }
+
+    p {
+        padding-top: 5%;
+    }
+
 }
 
-.month-avg-wrapper{
-    display: flex;
-    justify-content: space-around;
-}
-
-.table-section {
-    margin-left: 6%;
-    width: 25%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.month-avg-graph {
-    padding-top: 5%;
-    width: 40%;
-    margin-right: 5%;
-}
-
-tbody, thead {
-    text-align: center
-}
-
-tr {
-    cursor: pointer;
-}
